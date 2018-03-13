@@ -5,13 +5,15 @@
             <img src="../assets/logo.png" />
             <div class="head-nav">
                 <ul class="nav-list">
-                    <li>退出</li>
-                    <li class="nav-pile">|</li>
-                    <li>登陆</li>
-                    <li class="nav-pile">|</li>
-                    <li>注册</li>
-                    <li class="nav-pile">|</li>
-                    <li>关于</li>
+                    <li>{{ username }}</li>
+                    <li v-if="username !== ''" class="nav-pile">|</li>
+                    <li v-if="username !== ''" @click="quitDialog()">退出</li>
+                    <li v-if="username !== ''" class="nav-pile">|</li>
+                    <li v-if="username === ''" @click="openDialog('login')">登陆</li>
+                    <li v-if="username === ''" class="nav-pile">|</li>
+                    <li v-if="username === ''" @click="openDialog('register')">注册</li>
+                    <li v-if="username === ''" class="nav-pile">|</li>
+                    <li @click="openDialog('about')">关于</li>
                 </ul>
             </div>
         </div>
@@ -26,11 +28,59 @@
             Copyright © 2018 Yjanuary
         </p>
     </div>
+    <my-dialog :isShowDialog="isShowDialog.quit" @close-dialog="closeDialog('quit')">
+      <p>hello quit</p>
+    </my-dialog>
+    <my-dialog :isShowDialog="isShowDialog.login" @close-dialog="closeDialog('login')">
+      <log-form @hasLog="onSuccessLog"></log-form>
+    </my-dialog>
+    <my-dialog :isShowDialog="isShowDialog.register" @close-dialog="closeDialog('register')">
+      <p>hello register</p>
+    </my-dialog>
+    <my-dialog :isShowDialog="isShowDialog.about" @close-dialog="closeDialog('about')">
+      <p>hello about</p>
+    </my-dialog>
   </div>
 </template>
 
 <script>
-
+import dialog from './base/dialog'
+import logForm from './logForm'
+export default {
+  components: {
+    myDialog: dialog,
+    logForm
+  },
+  data () {
+    return {
+      isShowDialog: {
+        quit: false,
+        about: false,
+        login: false,
+        register: false,
+      },
+      username: ''
+    }
+  },
+  methods: {
+    openDialog (attr) {
+      this.isShowDialog[attr] = true
+    },
+    closeDialog (attr) {
+      this.isShowDialog[attr] = false
+    },
+    onSuccessLog (data) {
+      console.log(data)
+      this.closeDialog('login')
+      this.username = data.username
+    },
+    quitDialog () {
+      if(confirm('确定要退出吗？')){
+        this.username = ''
+      }
+    }
+  }
+}
 </script>
 
 <style>

@@ -3,6 +3,10 @@
 import Vue from 'vue'
 import router from './router'
 import Layout from './components/layout'
+import axios from 'axios'
+import mock from './mock/mock'
+
+Vue.prototype.$http = axios
 
 Vue.config.productionTip = false
 
