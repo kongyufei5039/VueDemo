@@ -101,9 +101,6 @@ export default {
 .sales-board {
   background: #fff;
 }
-.sales-board-form {
-
-}
 .sales-board-intro h2 {
   font-size: 20px;
   padding: 20px;
