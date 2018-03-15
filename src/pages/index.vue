@@ -18,7 +18,7 @@
                 <template>
                     <h3>{{ infoList.title }}</h3>
                     <ul>
-                        <li v-for="item in infoList.list">{{ item.name }}</li>
+                        <li v-for="item in infoList.list">{{ item.title }}</li>
                     </ul>
                 </template>
             </div>
@@ -50,7 +50,11 @@ export default {
   data () {
       return {
           inv: 2000,
-          slides: [
+          slides: [],
+          productList: null,
+          infoList: null,
+          boardList: []
+          /* slides: [
             {
                 src: require('../assets/slideShow/pic1.jpg'),
                 title: 'xxx1',
@@ -168,8 +172,41 @@ export default {
             toKey: 'detail/publish',
             saleout: false
             }
-        ]
+        ] */
       }
+  },
+  mounted () {
+      this.$http.get('/api/getSlides')
+      .then((res) => {
+          this.slides = res.data
+      })
+      .catch((error) => {
+          console.log(error)
+      })
+
+      this.$http.get('/api/getProductList')
+      .then((res) => {
+          this.productList = res.data
+      })
+      .catch((error) => {
+          console.log(error)
+      })
+
+      this.$http.get('/api/getNewsList')
+      .then((res) => {
+          this.infoList = res.data
+      })
+      .catch((error) => {
+          console.log(error)
+      })
+
+      this.$http.get('/api/getBoardList')
+      .then((res) => {
+          this.boardList = res.data
+      })
+      .catch((error) => {
+          console.log(error)
+      })
   }
 }
 </script>
