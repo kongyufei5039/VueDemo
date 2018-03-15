@@ -1,7 +1,7 @@
 <template>
   <div class="slide-show" @mouseover="clearInv" @mouseout="runInv">
      <div class="slide-img">
-         <a :href="slides[curIndex].href">
+         <a :href="slides[curIndex].toKey">
              <transition name="slide-trans">
                 <img v-if="isShow" :src="slides[curIndex].src">
              </transition>
@@ -93,7 +93,7 @@ export default {
   position: relative;
   margin: 15px 15px 15px 0;
   width: 900px;
-  height: 500px;
+  height: 400px;
   overflow: hidden;
 }
 .slide-show h2 {
