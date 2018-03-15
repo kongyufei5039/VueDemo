@@ -65,14 +65,13 @@ export default {
 .dialog-content {
   width: 50%;
   position: fixed;
-  max-height: 50%;
   overflow: auto;
   background: #fff;
   top: 20%;
   left: 50%;
   margin-left: -25%;
   z-index: 10;
-  border: 2px solid #464068;
+  border-radius: 10px;
   padding: 2%;
   line-height: 1.6;
 }
